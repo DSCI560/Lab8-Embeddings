@@ -81,7 +81,7 @@ for _r, _p in [('punkt', 'tokenizers/punkt'),
 
 STOPWORDS   = set(stopwords.words('english'))
 OUTPUT_DIR  = "doc2vec_outputs"
-CONCURRENCY = 15      # async article fetch workers
+CONCURRENCY = 50      # async article fetch workers
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
