@@ -86,13 +86,13 @@ CONCURRENCY = 15      # async article fetch workers
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # REDDIT MIRROR POOL
 #   Primary = reddit.com JSON API (no key, ~60 req/min per IP is safe)
 #   If 429/5xx → rotate through old.reddit, then Redlib instances
 #   Redlib instances are community-hosted; they use OAuth token spoofing so
 #   they bypass Reddit's direct throttling, but may have their own uptime issues.
-# ─────────────────────────────────────────────────────────────────────────────
+
 REDDIT_MIRRORS = [
     "https://www.reddit.com",
     "https://old.reddit.com",
@@ -112,9 +112,9 @@ USER_AGENTS = [
 
 IMAGE_EXTS = re.compile(r"\.(jpg|jpeg|png|gif|webp)(\?.*)?$", re.I)
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # ARTICLE PAYWALL / BOT-WALL BLOCKLIST  →  instant zero-retry skip
-# ─────────────────────────────────────────────────────────────────────────────
+
 BLOCKED_DOMAINS = {
     # Hard paywalls
     "bloomberg.com","wsj.com","nytimes.com","ft.com","thetimes.co.uk",
@@ -145,9 +145,9 @@ def is_blocked(url: str) -> bool:
     return any(h == d or h.endswith("." + d) for d in BLOCKED_DOMAINS)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # REDDIT JSON SCRAPER  (no API key)
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 def _reddit_headers() -> dict:
     return {
@@ -301,9 +301,9 @@ def enrich_with_comments(posts: list) -> None:
             time.sleep(1.5 + random.uniform(0, 0.5))
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # ASYNC ARTICLE ENRICHMENT
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 BROWSER_HEADERS = {
     "User-Agent": (
@@ -369,9 +369,9 @@ async def fetch_articles_async(urls: list) -> list:
     return results
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # DATABASE  —  lab8  |  doc2vec_posts
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 def get_db_conn(host, user, password, database="lab8"):
     conn = psycopg2.connect(host=host, database=database,
@@ -450,9 +450,9 @@ def insert_post(conn, r):
     cur.close()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # TEXT UTILITIES
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 def clean_text(text: str) -> str:
     if not text:
@@ -486,9 +486,9 @@ def ocr_image(url: str) -> str:
         return ""
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # DOC2VEC — SIX CONFIGURATIONS
-# ─────────────────────────────────────────────────────────────────────────────
+
 DOC2VEC_CONFIGS = [
     # (name,             vec_size, min_cnt, epochs, dm,  window)
     ("dbow_50_fast",          50,       2,     20,   0,    5),
@@ -612,9 +612,9 @@ def embed_and_cluster(records: list) -> list:
     return results
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # PIPELINE
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 def run_pipeline(args):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -681,9 +681,9 @@ def run_pipeline(args):
     logging.info(f"Done. Outputs → ./{OUTPUT_DIR}/")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # INTERACTIVE QUERY
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 def interactive_query(conn):
     print("\nInteractive query — 'exit' to quit.\n")
@@ -720,9 +720,9 @@ def interactive_query(conn):
     cur.close()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # CLI
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 def main():
     p = argparse.ArgumentParser(

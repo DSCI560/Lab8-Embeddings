@@ -1,0 +1,11 @@
+aiohttp
+psycopg2
+numpy
+matplotlib
+pillow
+tqdm
+gensim
+scikit-learn
+nltk
+requests
+trafilatura
