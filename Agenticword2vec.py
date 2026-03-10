@@ -65,7 +65,7 @@ for _r, _p in [
         nltk.download(_r, quiet=True)
 
 STOPWORDS   = set(stopwords.words("english"))
-OUTPUT_DIR  = "doc2vec_outputs"
+OUTPUT_DIR  = "word2vec_outputs"
 CONCURRENCY = 25
 
 logging.basicConfig(
@@ -318,7 +318,7 @@ async def fetch_articles_async(urls):
 # ─── DATABASE ───────────────────────────────────────────────────────────────
 
 def get_db_conn(host, user, password, database="lab8"):
-    conn = psycopg2.connect(host=host, database=database, user=user, password=password)
+    conn = psycopg2.connect(host=host, port=5433, database=database, user=user, password=password)
     conn.autocommit = True
     logging.info(f"Connected to '{database}' on {host}")
     return conn
