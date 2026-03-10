@@ -4,7 +4,7 @@ import psycopg2
 import argparse
 
 
-def get_db_conn(host, user, password, database="lab5_reddit"):
+def get_db_conn(host, user, password, database="lab8"):
     conn = psycopg2.connect(
         host=host,
         database=database,
