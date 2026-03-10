@@ -277,7 +277,7 @@ async def fetch_articles_async(urls):
 
 
 def get_db_conn(host, user, password, database="lab8"):
-    conn = psycopg2.connect(host=host, port=5432, database=database, user=user, password=password)
+    conn = psycopg2.connect(host=host, port=5433, database=database, user=user, password=password)
     conn.autocommit = True
     logging.info(f"Connected to '{database}' on {host}")
     return conn
